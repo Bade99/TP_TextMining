@@ -5,3 +5,5 @@ Qué necesitamos:
 · Doc con la investigacion, las citas a los papers, videos que hayamos mirado. Todo explicado con nuestras palabras.
 · Presentacion ppt
 · Codigo corriendo
+
+Entregamos el 15/11 !!!
