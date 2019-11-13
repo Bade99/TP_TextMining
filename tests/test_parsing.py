@@ -2,11 +2,12 @@ import glob
 from os.path import join, dirname, abspath
 from functools import partial
 
-import pdftotext as pdftotext
+import pdftotext
 from docx import Document
 
-get_dir = partial(join, dirname(abspath(__file__)), 'tests_data')
-ds_file = partial(join, dirname(abspath(__file__)), 'dataset-nlp-utn')
+from similarity.parser import pdf_to_text, doc_to_text
+
+get_dir = partial(join, dirname(abspath(__file__)), 'data')
 
 
 def test_open_doc():
@@ -41,25 +42,6 @@ def test_open_pdf():
     assert result == expected_result
 
 
-test_open_doc()
-test_open_pdf()
-
-
-def doc_to_text(filename):
-    return '\n'.join(
-        x.text for x in
-        Document(filename).paragraphs
-        if x.text
-    )
-
-
-def pdf_to_text(filename):
-    with open(filename, 'rb') as f:
-        pdf = pdftotext.PDF(f)
-
-    return '\n'.join(pdf)
-
-
 def test_can_read_all_pdfs():
     for i, file in enumerate(glob.glob('./dataset-nlp-utn/*.pdf')):
         assert pdf_to_text(file)
@@ -68,7 +50,3 @@ def test_can_read_all_pdfs():
 def test_can_read_all_docs():
     for i, file in enumerate(glob.glob('./dataset-nlp-utn/*.docx')):
         assert doc_to_text(file)
-
-
-test_can_read_all_docs()
-test_can_read_all_pdfs()
