@@ -23,7 +23,7 @@ def pdf_to_text(filename):
     return '\n'.join(pdf)
 
 
-def parse_file(file_path):
+def file_to_str(file_path):
     file_extension = os.path.splitext(file_path)[1]
 
     PARSERS = {
@@ -39,8 +39,13 @@ def parse_file(file_path):
 
 def compare_docs(file, basefile):
     """Compares two documents and output a similarity index that goes from 0 to 100"""
-    input_text = parse_file(file)
-    baseline_text = parse_file(basefile)  # To improve efficiency we could store the text content by filename key
+    input_text = file_to_str(file)
+    baseline_text = file_to_str(basefile)  # To improve efficiency we could store the text content by filename key
 
     if input_text.strip() == baseline_text.strip():
         return Similarity(100)
+
+    # Split into list of sentences
+    # Transform each sentence to stem
+    # Compare content with each of our corpus files. (For the demo it could be just one test file)
+    # If anyone is greater than say.. 80%, show it as plagio.
